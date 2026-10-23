@@ -34,9 +34,9 @@ namespace {
 
 SKSEPluginInfo(
 	.Version = {Project::Version::MAJOR, Project::Version::MINOR, Project::Version::PATCH},
-	.Name = "TBD",
-	.Author = "TBD",
-	.SupportEmail = "TBD",
+	.Name = "RecursionFPSFix",
+	.Author = "nightfallstorm",
+	.SupportEmail = "",
 	.StructCompatibility = SKSE::StructCompatibility::Independent,
 )
 

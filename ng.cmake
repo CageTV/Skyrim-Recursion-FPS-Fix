@@ -1,0 +1,23 @@
+# RecursionFPSFix.dll built from the ng-build tree on Windows (MSVC), next to the other CageTV plugins; included by E:/WorkSpace/ng-build/CMakeLists.txt.
+# The repository's own CMakeLists.txt is the Linux cross-compile build (local-env.cmake). main.cpp declares its own SKSEPluginInfo, so this does not use ng_plugin().
+set(_rf_gen "${CMAKE_BINARY_DIR}/recursionfpsfix-gen/include")
+set(PROJECT_VERSION 1.2.0)
+set(AUTHOR "nightfallstorm")
+set(_rf_saved_name "${PROJECT_NAME}")
+set(PROJECT_NAME "RecursionFPSFix")
+set(PROJECT_VERSION_MAJOR 1)
+set(PROJECT_VERSION_MINOR 2)
+set(PROJECT_VERSION_PATCH 0)
+configure_file("${CMAKE_CURRENT_LIST_DIR}/cmake/Version.h.in" "${_rf_gen}/Version.h" @ONLY)
+set(PROJECT_NAME "${_rf_saved_name}")
+add_library(RecursionFPSFix SHARED "${CMAKE_CURRENT_LIST_DIR}/src/main.cpp" "${CMAKE_CURRENT_LIST_DIR}/src/PCH.cpp")
+target_compile_features(RecursionFPSFix PRIVATE cxx_std_23)
+target_link_libraries(RecursionFPSFix PRIVATE CommonLibSSE::CommonLibSSE)
+target_include_directories(RecursionFPSFix PRIVATE "${CMAKE_CURRENT_LIST_DIR}/src" "${_rf_gen}")
+target_precompile_headers(RecursionFPSFix PRIVATE "${CMAKE_CURRENT_LIST_DIR}/src/PCH.h")
+target_compile_options(RecursionFPSFix PRIVATE /utf-8 $<$<CONFIG:Release>:/Z7>)
+target_link_options(RecursionFPSFix PRIVATE $<$<CONFIG:Release>:/DEBUG /OPT:REF /OPT:ICF>)
+set(_rf_out "${CMAKE_BINARY_DIR}/out/RecursionFPSFix")
+set_target_properties(RecursionFPSFix PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${_rf_out}" ARCHIVE_OUTPUT_DIRECTORY "${_rf_out}"
+                      LIBRARY_OUTPUT_DIRECTORY "${_rf_out}" PDB_OUTPUT_DIRECTORY "${_rf_out}")
+set_property(GLOBAL APPEND PROPERTY NG_PLUGIN_TARGETS RecursionFPSFix)
