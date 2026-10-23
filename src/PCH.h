@@ -25,7 +25,7 @@ namespace stl
 	void write_thunk_call(std::uintptr_t a_src)
 	{
 		auto& trampoline = SKSE::GetTrampoline();
-		SKSE::AllocTrampoline(14);
+		SKSE::AllocTrampoline(64);  // CommonLibSSE-NG creates the trampoline on the first call and ignores later sizes: room for both hooks (14 bytes each)
 
 		T::func = trampoline.write_call<5>(a_src, T::thunk);
 	}
